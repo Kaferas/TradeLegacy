@@ -1,20 +1,70 @@
 <?php
-
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdressLocationController;
+use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashBoardController;
+use App\Http\Controllers\DeleteTemporaryImageController;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\LibrairieController;
+use App\Http\Controllers\LiveController;
+use App\Http\Controllers\PartenerController;
+use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SiteManagerController;
+use App\Http\Controllers\SliderController;
+use App\Http\Controllers\TagsController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UploadTemporaryImage;
+use App\Http\Controllers\UserRegisterController;
+use App\Models\Slider;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [SiteManagerController::class,'home'])->name("home");
+Route::get('/liveStream', [SiteManagerController::class,'liveStream'])->name("liveStream");
+Route::get('/about', [SiteManagerController::class,'about'])->name("about");
+Route::get('/contact_us', [SiteManagerController::class,'contact'])->name("contact_us");
+Route::get('/adresse', [SiteManagerController::class,'adresse'])->name("adresse");
+Route::post('customer_requests', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/blogs', [SiteManagerController::class,'allBlogs'])->name("blogs");
+Route::get('/blogs/show/{id}', [SiteManagerController::class,'show'])->name("blogs.show");
+Route::get('/blogs/{catId}', [SiteManagerController::class,'withCategoryOf'])->name("withCategoryOf");
+Route::get('all', [FaqController::class, 'indexPublished'])->name('indexPublished');
+Route::get('/products', [SiteManagerController::class, 'productList'])->name('product.list');
+Route::get('cart',[SiteManagerController::class,'cartList'])->name('cart.index');
+Route::get('cart/{id}', [SiteManagerController::class, 'addToCart'])->name('cart.add');
+Route::post('cart/checkout', [SiteManagerController::class, 'checkoutCart'])->name('cart.checkout');
 Route::get('/', function () {
     return view('website.home');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware(['auth','verified'])->group(function () {
+    Route::resource('/dashboard', DashBoardController::class);
+    Route::resource('/teams', TeamController::class);
+    Route::resource('/categories', CategoriesController::class);
+    Route::resource('/tags', TagsController::class);
+    Route::resource('/schedule', ScheduleController::class);
+    Route::resource('/post_blog', ArticlesController::class);
+    Route::resource('/events', EventsController::class);
+    Route::resource('/adress_location', AdressLocationController::class);
+    Route::resource('/users_', UserRegisterController::class);
+    Route::resource('/live', LiveController::class);
+    Route::resource('/partners', PartenerController::class);
+    Route::resource('/contact', ContactController::class)->except(['store']);
+    Route::resource('/settings', ServiceController::class);
+    Route::resource('faqs', FaqController::class);
+    Route::put('faqs/positions', [FaqController::class, 'updatePositions'])->name('faqs.positions');
+    Route::put('faqs/{faq}/toggle-published', [FaqController::class, 'togglePublished'])->name('faqs.toggle-published');
+    Route::get('/online/{live}', [LiveController::class, 'online'])->name("online");
+    Route::resource('/librairie', LibrairieController::class);
+    Route::post('/load', UploadTemporaryImage::class);
+    Route::delete('/destroy', DeleteTemporaryImageController::class);
+    Route::resource('slides', SliderController::class);
+    Route::resource('category', CategoryController::class);
+    Route::resource('product', ProductController::class);
+// });
 
 require __DIR__.'/auth.php';
