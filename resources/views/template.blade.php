@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+@php
+    $contact=App\Models\AdressLocation::first();
+    // dd($contact);
+@endphp
 <html lang="en">
 
 
@@ -33,7 +37,6 @@
     </head>
 
     <body>
-
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -98,48 +101,22 @@
                             <li data-bs-target="#carouselId" data-bs-slide-to="2"></li>
                         </ol>
                         <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <img src="{{asset("assets/img/carousel-2.jpg")}}" class="img-fluid" alt="Image">
+                            @foreach ($sliders as $slide)
+                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                <img src="{{ Storage::url('uploads/sliders/' . $slide->image) }}" class="img-fluid" alt="Image">
                                 <div class="carousel-caption">
                                     <div class="p-3" style="max-width: 900px;">
-                                        <h4 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Explore The World</h4>
-                                        <h1 class="display-2 text-capitalize text-white mb-4">Let's The World Together!</h1>
-                                        <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                        <h1 class="display-2 text-capitalize text-white mb-4">{{$slide->title}}</h1>
+                                        <p class="mb-5 fs-5">
+                                            {!! $slide->description !!}
                                         </p>
-                                        <div class="d-flex align-items-center justify-content-center">
+                                        {{-- <div class="d-flex align-items-center justify-content-center">
                                             <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="#">Discover Now</a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="carousel-item">
-                                <img src="{{asset("assets/img/carousel-1.jpg")}}" class="img-fluid" alt="Image">
-                                <div class="carousel-caption">
-                                    <div class="p-3" style="max-width: 900px;">
-                                        <h4 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Explore The World</h4>
-                                        <h1 class="display-2 text-capitalize text-white mb-4">Find Your Perfect Tour At Travel</h1>
-                                        <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        </p>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="#">Discover Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{asset("assets/img/carousel-3.jpg")}}" class="img-fluid" alt="Image">
-                                <div class="carousel-caption">
-                                    <div class="p-3" style="max-width: 900px;">
-                                        <h4 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">Explore The World</h4>
-                                        <h1 class="display-2 text-capitalize text-white mb-4">You Like To Go?</h1>
-                                        <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        </p>
-                                        <div class="d-flex align-items-center justify-content-center">
-                                            <a class="btn-hover-bg btn btn-primary rounded-pill text-white py-3 px-5" href="#">Discover Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon btn bg-primary" aria-hidden="false"></span>
@@ -164,16 +141,15 @@
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <h4 class="mb-4 text-white">Get In Touch</h4>
-                            <a href="#"><i class="fas fa-home me-2"></i> 123 Street, New York, USA</a>
-                            <a href="#"><i class="fas fa-envelope me-2"></i> info@example.com</a>
-                            <a href="#"><i class="fas fa-phone me-2"></i> +012 345 67890</a>
-                            <a href="#" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a>
+                            <a href="#"><i class="fas fa-home me-2"></i> {{$contact->adress_location}}</a>
+                            <a href="#"><i class="fas fa-envelope me-2"></i> {{$contact->email_adress}}</a>
+                            <a href="#"><i class="fas fa-phone me-2"></i> {{$contact->phone_number}}</a>
+                            {{-- <a href="#" class="mb-3"><i class="fas fa-print me-2"></i> {{$contact->fax}}</a> --}}
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-share fa-2x text-white me-2"></i>
-                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-instagram"></i></a>
-                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="{{ $contact->facebook_link }}"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="{{ $contact->twitter_link }}"><i class="fab fa-twitter"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="{{ $contact->youtube_link }}"><i class="fab fa-youtube"></i></a>
                             </div>
                         </div>
                     </div>
@@ -183,9 +159,6 @@
                             <a href="#"><i class="fas fa-angle-right me-2"></i> About</a>
                             <a href="#"><i class="fas fa-angle-right me-2"></i> Careers</a>
                             <a href="#"><i class="fas fa-angle-right me-2"></i> Blog</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Press</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Gift Cards</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Magazine</a>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 col-xl-3">
@@ -194,50 +167,6 @@
                             <a href="#"><i class="fas fa-angle-right me-2"></i> Contact</a>
                             <a href="#"><i class="fas fa-angle-right me-2"></i> Legal Notice</a>
                             <a href="#"><i class="fas fa-angle-right me-2"></i> Privacy Policy</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Terms and Conditions</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Sitemap</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Cookie policy</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item">
-                            <div class="row gy-3 gx-2 mb-4">
-                                <div class="col-xl-6">
-                                    <form>
-                                        <div class="form-floating">
-                                            <select class="form-select bg-dark border" id="select1">
-                                                <option value="1">Arabic</option>
-                                                <option value="2">German</option>
-                                                <option value="3">Greek</option>
-                                                <option value="3">New York</option>
-                                            </select>
-                                            <label for="select1">English</label>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-xl-6">
-                                    <form>
-                                        <div class="form-floating">
-                                            <select class="form-select bg-dark border" id="select1">
-                                                <option value="1">USD</option>
-                                                <option value="2">EUR</option>
-                                                <option value="3">INR</option>
-                                                <option value="3">GBP</option>
-                                            </select>
-                                            <label for="select1">$</label>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <h4 class="text-white mb-3">Payments</h4>
-                            <div class="footer-bank-card">
-                                <a href="#" class="text-white me-2"><i class="fab fa-cc-amex fa-2x"></i></a>
-                                <a href="#" class="text-white me-2"><i class="fab fa-cc-visa fa-2x"></i></a>
-                                <a href="#" class="text-white me-2"><i class="fas fa-credit-card fa-2x"></i></a>
-                                <a href="#" class="text-white me-2"><i class="fab fa-cc-mastercard fa-2x"></i></a>
-                                <a href="#" class="text-white me-2"><i class="fab fa-cc-paypal fa-2x"></i></a>
-                                <a href="#" class="text-white"><i class="fab fa-cc-discover fa-2x"></i></a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -250,13 +179,13 @@
             <div class="container">
                 <div class="row g-4 align-items-center">
                     <div class="col-md-6 text-center text-md-end mb-md-0">
-                        <i class="fas fa-copyright me-2"></i><a class="text-white" href="#">Your Site Name</a>, All right reserved.
+                        <i class="fas fa-copyright me-2"></i><a class="text-white" href="#">{{env('APP_NAME')}}</a>, All right reserved.
                     </div>
                     <div class="col-md-6 text-center text-md-start">
                         <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
                         <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
                         <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                        Designed By <a class="text-white" href="https://htmlcodex.com/">HTML Codex</a> Distributed By <a href="https://themewagon.com/">ThemeWagon</a>
+                        Designed By <a class="text-white" href="https://itara-nexus.com/">ITARA NEXUS</a>Distributed By <a href="https://itara-nexus.com/">Kaferas</a>
                     </div>
                     </div>
                 </div>

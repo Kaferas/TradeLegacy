@@ -17,6 +17,7 @@ use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+
 class SiteManagerController extends Controller
 {
     public function home(){
@@ -176,7 +177,7 @@ class SiteManagerController extends Controller
             // Send email
             Mail::to(env('MAIL_FROM_ADDRESS', 'guytresor1811@gmail.com'))
                 ->send(new OrderConfirmation($orderDetails));
-    
+
             session()->put('cart', []); // Clear the cart after checkout
             echo json_encode(['success' => true,'messages' => 'Checkout completed successfully!']);
         } catch (\Exception $e) {

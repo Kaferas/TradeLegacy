@@ -21,9 +21,11 @@ use App\Models\Slider;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Models\parteners;
+use App\Models\Team;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [SiteManagerController::class,'home'])->name("home");
+// Route::get('/', [SiteManagerController::class,'home'])->name("home");
 Route::get('/liveStream', [SiteManagerController::class,'liveStream'])->name("liveStream");
 Route::get('/about', [SiteManagerController::class,'about'])->name("about");
 Route::get('/contact_us', [SiteManagerController::class,'contact'])->name("contact_us");
@@ -38,7 +40,9 @@ Route::get('cart',[SiteManagerController::class,'cartList'])->name('cart.index')
 Route::get('cart/{id}', [SiteManagerController::class, 'addToCart'])->name('cart.add');
 Route::post('cart/checkout', [SiteManagerController::class, 'checkoutCart'])->name('cart.checkout');
 Route::get('/', function () {
-    return view('website.home');
+     $sliders=Slider::where("status",0)->orderBy("id","DESC")->get();
+    $teams= Team::where("deleted_status",0)->get();
+    return view('website.home',['sliders' => $sliders, 'teams' => $teams]);
 })->name('home');
 
 // Route::middleware(['auth','verified'])->group(function () {
