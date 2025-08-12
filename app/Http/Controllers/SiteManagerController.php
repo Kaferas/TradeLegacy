@@ -38,12 +38,17 @@ class SiteManagerController extends Controller
     public function about(){
         $contact=AdressLocation::first();
         $teams= Team::where("deleted_status",0)->get();
-        return view('front.blogs.about',['teams' => $teams,'about'=>$contact]);
+        return view('website.about',['teams' => $teams,'about'=>$contact]);
     }
     public function contact(){
         $contact=AdressLocation::first();
         $teams= Team::where("deleted_status",0)->get();
-        return view('front.blogs.contact',['teams' => $teams,'about'=>$contact]);
+        return view('website.contact',['teams' => $teams,'about'=>$contact]);
+    }
+    public function ourServices(){
+        $contact=AdressLocation::first();
+        $teams= Team::where("deleted_status",0)->get();
+        return view('website.services',['teams' => $teams,'about'=>$contact]);
     }
 
     public function allBlogs(){
@@ -51,7 +56,7 @@ class SiteManagerController extends Controller
         $category=Categories::where("deleted_status",0)->withCount('posts')->get();
         $tags=Tags::where('deleted_status',0)->get();
         $recents = Articles::where("deleted_status", 0)->with("user","tags","categories","pictures")->orderBy('id', "DESC")->take(3)->get();
-        return view('front.blogs.all',['blogs' => $blogs,'categories'=>$category,'recents'=>$recents,'tags'=>$tags]);
+        return view('website.blogs',['blogs' => $blogs,'categories'=>$category,'recents'=>$recents,'tags'=>$tags]);
     }
 
     public function withCategoryOf($id){

@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/liveStream', [SiteManagerController::class,'liveStream'])->name("liveStream");
 Route::get('/about', [SiteManagerController::class,'about'])->name("about");
 Route::get('/contact_us', [SiteManagerController::class,'contact'])->name("contact_us");
+Route::get('/our_services', [SiteManagerController::class,'ourServices'])->name("our_services");
 Route::get('/adresse', [SiteManagerController::class,'adresse'])->name("adresse");
 Route::post('customer_requests', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/blogs', [SiteManagerController::class,'allBlogs'])->name("blogs");
