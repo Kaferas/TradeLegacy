@@ -1,10 +1,12 @@
 @extends("template")
 
+@section("tab_name", "Get in Touch")
+
 @section("content")
         <!-- Header Start -->
         <div class="container-fluid bg-breadcrumb">
-            <div class="container text-center py-5" style="max-width: 900px;">
-                <h3 class="text-white display-3 mb-4">Contact Us</h1>
+            <div class="container text-center py-2" style="max-width: 900px;">
+                <h3 class="text-white display-3 mb-2">Contact Us</h3>
             </div>
         </div>
         <!-- Header End -->
@@ -21,21 +23,19 @@
                         <div class="bg-white rounded p-4">
                             <div class="text-center mb-4">
                                 <i class="fa fa-map-marker-alt fa-3x text-primary"></i>
-                                <h4 class="text-primary"><Address></Address></h4>
-                                <p class="mb-0">123 ranking Street, <br> New York, USA</p>
+                                <h4 class="text-primary"> Trade Legacy Office </h4>
+                                <p class="mb-0"> Avenue Pierre Ngendandumwe, Central Building, Office No. 306D<br/> Bujumbura, Burundi </p>
                             </div>
                             <div class="text-center mb-4">
                                 <i class="fa fa-phone-alt fa-3x text-primary mb-3"></i>
-                                <h4 class="text-primary">Mobile</h4>
-                                <p class="mb-0">+012 345 67890</p>
-                                <p class="mb-0">+012 345 67890</p>
+                                <h4 class="text-primary"> Mobile </h4>
+                                <p class="mb-0"> 25779307064</p>
                             </div>
 
                             <div class="text-center">
                                 <i class="fa fa-envelope-open fa-3x text-primary mb-3"></i>
                                 <h4 class="text-primary">Email</h4>
-                                <p class="mb-0">info@example.com</p>
-                                <p class="mb-0">info@example.com</p>
+                                <p class="mb-0">info@tradelegacy.org</p>
                             </div>
                         </div>
                     </div>
@@ -71,6 +71,7 @@
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
                                 </div>
+
                             </div>
                         </form>
                     </div>
@@ -87,5 +88,5 @@
         <!-- Contact End -->
 
         <!-- Back to Top -->
-        <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+        {{-- <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a> --}}
 @endsection

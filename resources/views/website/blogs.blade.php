@@ -1,10 +1,12 @@
 @extends("template")
 
+@section("tab_name", "Insights & News")
+
 @section("content")
 
         <!-- Header Start -->
         <div class="container-fluid bg-breadcrumb">
-            <div class="container text-center py-5" style="max-width: 900px;">
+            <div class="container text-center py-2" style="max-width: 900px;">
                 <h3 class="text-white display-3 mb-4">Our Blog</h1>
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -40,7 +42,9 @@
                                 <div class="blog-content border border-top-0 rounded-bottom p-4">
                                     <p class="mb-3">Posted By: {{ ucfirst($blog->user->name ?? "ADMIN") }} </p>
                                     <a href="{{ route("blogs.show",$blog->id) }}" class="h4">{{ ucfirst($blog->title) }}</a>
-                                    <p class="my-3">{!! $blog->description!!}</p>
+                                    <p class="my-3">
+                                        {{ \Illuminate\Support\Str::words(strip_tags($blog->description), 20, '...') }}
+                                    </p>
                                     <a href="{{ route("blogs.show",$blog->id) }}" class="btn btn-warning py-2 px-4">Read More</a>
                                 </div>
                             </div>

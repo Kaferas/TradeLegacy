@@ -90,8 +90,9 @@ class SiteManagerController extends Controller
         $blogs= Articles::where('id',$id)->where("is_published",'on')->with('tags','categories','user','pictures')->orderBy("id","DESC")->first();
         $category=Categories::where("deleted_status",0)->withCount('posts')->get();
         $recents = Articles::where("deleted_status", 0)->with("user","tags","categories","pictures")->orderBy('id', "DESC")->take(3)->get();
-        $tags=Tags::where('deleted_status',0)->get();
-        return view('front.blogs.single',['blog' => $blogs,'categories'=>$category,'recents'=>$recents,'tags'=>$tags,'about'=>$contact,'previous'=>$previous,'next'=>$next]);
+        $relatedBlogs= Articles::where("is_published",'on')->where("deleted_status",0)->with('tags','categories','user','pictures')->where('categorie_id',$id)->orderBy("id","DESC")->paginate(2);
+        $tags=Tags::where('deleted_status',0)->take(4)->get();
+        return view('website.single',['blog' => $blogs,'categories'=>$category,'recents'=>$recents,'tags'=>$tags,'about'=>$contact,'previous'=>$previous,'next'=>$next,'relatedBlogs'=>$relatedBlogs]);
     }
 
     public function productList(Request $request)

@@ -72,6 +72,16 @@
                         </p>
                     @endif
                 </div>
+                  <div class="form-group col-12">
+                    <label for="" class="text text-primary">Description<sup
+                            class='text text-danger fw-bold '>*</sup>:</label>
+                    <textarea name="description" id="" rows="9" class="form-control">{{ empty($team->description) ? old('description') : $team->description }}</textarea>
+                    @if ($errors->has('description'))
+                        <p class="mt-1 p-1 col-12 text text-light text-center bg-danger">
+                            {{ $errors->first('description') }}
+                        </p>
+                    @endif
+                </div>
             </div>
             <div class="row p-2">
                 <div class="col-6"></div>

@@ -10,7 +10,7 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
         <meta charset="utf-8">
-        <title>{{ env("APP_NAME") }} - Tourism Website Template</title>
+        <title>{{ env("APP_NAME") }} | @yield("tab_name")</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -19,19 +19,14 @@
         <link rel="preconnect" href="https://fonts.googleapis.com/">
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&amp;family=Roboto&amp;display=swap" rel="stylesheet">
-
-        <!-- Icon Font Stylesheet -->
+        <link rel="shortcut icon" href="{{ asset('assets/img/logo.ico') }}" type="image/x-icon">
         <link rel="stylesheet" href="{{ asset('assets/releases/v5.15.4/css/all.css') }}"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons%401.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
         <!-- Libraries Stylesheet -->
         <link href="{{ asset('assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
-
-
         <!-- Customized Bootstrap Stylesheet -->
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-
         <!-- Template Stylesheet -->
         <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     </head>
@@ -52,7 +47,7 @@
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
                     <div class="d-inline-flex align-items-center" style="height: 45px;">
-                        <a href="{{ route('login') }}"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
+                        {{-- <a href="{{ route('login') }}"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a> --}}
                     </div>
                 </div>
             </div>
@@ -60,10 +55,10 @@
         <!-- Topbar End -->
 
         <!-- Navbar & Hero Start -->
-        <div class="container-fluid position-relative p-0">
+        <div class="container-fluid position-relative">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
                 <a href="#" class="navbar-brand p-0">
-                    <img src="{{ asset('assets/img/logo.png') }}" alt="" style="width: 100px; height: 250px;">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="" style="width: 80px; height: 250px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
@@ -89,7 +84,8 @@
                         <div class="carousel-inner" role="listbox">
                             @foreach ($sliders as $slide)
                                 <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                <img src="{{ Storage::url('uploads/sliders/' . $slide->image) }}" class="img-fluid" alt="Image">
+                                <img src="{{ Storage::url
+                                ('uploads/sliders/' . $slide->image) }}" class="img-fluid" alt="{{ $slide->image }}">
                                 <div class="carousel-caption">
                                     <div class="p-3" style="max-width: 900px;">
                                         <h1 class="display-2 text-capitalize text-white mb-4">{{$slide->title}}</h1>
@@ -117,20 +113,21 @@
             @endif
         </div>
         <!-- About Start -->
-     <div class="container-fluid">
+     <div class="container-fluid py-5">
         @yield('content')
      </div>
         <!-- Footer Start -->
         <div class="container-fluid footer py-5">
             <div class="container py-5">
-                <div class="row g-5">
+                <div class="d-flex justify-content-around align-items-center">
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <h4 class="mb-4 text-white">Get In Touch</h4>
                             <a href="#"><i class="fas fa-home me-2"></i> {{$contact->adress_location}}</a>
-                            <a href="#"><i class="fas fa-envelope me-2"></i> {{$contact->email_adress}}</a>
+                            <a href="mailto:{{$contact->email_adress}}"><i class="fas fa-envelope me-2"></i> {{$contact->email_adress}}</a>
                             <a href="#"><i class="fas fa-phone me-2"></i> {{$contact->phone_number}}</a>
                             {{-- <a href="#" class="mb-3"><i class="fas fa-print me-2"></i> {{$contact->fax}}</a> --}}
+                            <p class="mb-0 text-light">Monday–Friday, 8:00 AM – 5:00 PM</p>
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-share fa-2x text-white me-2"></i>
                                 <a class="btn-square btn btn-primary rounded-circle mx-1" href="{{ $contact->facebook_link }}"><i class="fab fa-facebook-f"></i></a>
@@ -142,19 +139,19 @@
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <h4 class="mb-4 text-white">Company</h4>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> About</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Careers</a>
-                            <a href="#"><i class="fas fa-angle-right me-2"></i> Blog</a>
+                            <a href="{{ route("about") }}"><i class="fas fa-angle-right me-2"></i> About</a>
+                            <a href="{{ route("our_services") }}"><i class="fas fa-angle-right me-2"></i> Services</a>
+                            <a href="{{ route("blogs") }}"><i class="fas fa-angle-right me-2"></i> Blog</a>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
+                    {{-- <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
                             <h4 class="mb-4 text-white">Support</h4>
                             <a href="#"><i class="fas fa-angle-right me-2"></i> Contact</a>
                             <a href="#"><i class="fas fa-angle-right me-2"></i> Legal Notice</a>
                             <a href="#"><i class="fas fa-angle-right me-2"></i> Privacy Policy</a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -171,18 +168,21 @@
                         <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
                         <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
                         <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                        Designed By <a class="text-white" href="https://itara-nexus.com/">ITARA NEXUS</a>Distributed By <a href="https://itara-nexus.com/">Kaferas</a>
+                        <h6 class="text-light">Designed By <a class="text-white" href="https://itara-nexus.com/">ITARA NEXUS</a> | &nbsp;Distributed By <a href="https://github.com/Kaferas/">Kaferas</a></h6>
                     </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Copyright End -->
+        @if(Route::currentRouteName() === 'contact_us')
+            <a href="https://wa.me/+25779307064" target="_blank" style="position: sticky; bottom: 50px; left: 93%;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="50">
+            </a>
+        @else
+            <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+        @endif
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>
-
-
+        @yield('scripts')
         <!-- JavaScript Libraries -->
         <script src="{{ asset('assets/ajax/libs/jquery/3.6.4/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/npm/bootstrap5/dist/js/bootstrap.bundle.min.js') }}"></script>

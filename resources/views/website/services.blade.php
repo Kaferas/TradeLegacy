@@ -1,14 +1,17 @@
 @extends("template")
 
+@section("tab_name", "Services & Agri-Solutions")
+
 @section("content")
 <div class="container-fluid p-5">
     <!-- Title -->
     <div class="text-center mt-5">
-        <h1 class="fw-bold text-success">TRADE LEGACY BURUNDI</h1>
+        <h1 class="mb-5 fw-bold text-success">TRADE LEGACY BURUNDI</h1>
         <p class="lead text-muted">
             A Farming Company Empowering Smallholders and Transforming Agriculture in East Africa
         </p>
         <h2 class="fw-bold mt-4">Our Services</h2>
+        <hr class="bg-primary mb-4" style="height: 2px; width: 100px; margin: auto;">
     </div>
 
     @php
@@ -54,13 +57,14 @@
     @foreach($services as $index => $service)
         <div class="row align-items-center mb-5 {{ $index % 2 !== 0 ? 'flex-row-reverse' : '' }}">
             <!-- Image -->
-            <div class="col-md-6 mb-3 mb-md-0">
-                <img src="{{ $service['img'] }}" alt="{{ $service['title'] }}" class="img-fluid rounded shadow" style="max-height: 300px; width: 70%; object-fit: cover;">
+            <div class="col-md-6 mb-3 mb-md-0 text-center">
+                <img src="{{ $service['img'] }}" alt="{{ $service['title'] }}" class="img-fluid rounded shadow" style="max-height: 460px; width: 70%; object-fit: cover;">
             </div>
             <!-- Text -->
             <div class="col-md-6">
-                <h3 class="fw-bold text-success">{{ $service['title'] }}</h3>
-                <p>{!! nl2br($service['desc']) !!}</p>
+                <h3  class="mb-3 fw-bold text-success">{{ $service['title'] }}</h3>
+                <hr class="bg-primary mb-4" style="height: 2px;">
+                <p style="font-size:20px">{!! nl2br($service['desc']) !!}</p>
             </div>
         </div>
     @endforeach

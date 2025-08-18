@@ -1,5 +1,8 @@
 @extends("template")
 
+@section("tab_name", "Our Story")
+
+
 @section('content')
     <div class="container-fluid p-4">
         <div class="container py-5">
@@ -14,12 +17,15 @@
     <!-- Company Overview -->
     <section class="mb-5">
         <h2 class="fw-bold text-success">Company Overview</h2>
-        <p>
+        {{-- <p>
             Trade Legacy Burundi is a Burundian farming and agribusiness company and social enterprise founded by
             <strong>Bokim Beni Nihoze</strong> to revolutionize agriculture through sustainability, innovation, and inclusion.
             Operating from Buhiga Province, we specialize in eco-friendly agricultural production, farmer training,
             and agribusiness development with a firm commitment to empowering farmers, who represent over 90% of the
             population in Burundi.
+        </p> --}}
+        <p>
+           Trade Legacy is a Burundian agribusiness company connecting smallholder farmers to better markets, offering hands-on training, and building sustainable food systems. We turn small farms into stronger, profitable businesses.
         </p>
         <p>
             Inspired by the need to better include rural small-scale farmers in development efforts, Bokim made the
@@ -99,6 +105,9 @@
             <li class="list-group-item"><strong>Head Office:</strong> Bujumbura</li>
             <li class="list-group-item"><strong>Trade Hub (In Development):</strong> Buhiga Zone</li>
         </ul>
+    </section>
+    <section class="jumbotron text-center p-4">
+        <p>Read our UN feature: From Farm to Forex <a target="_blank" href="https://www.un.org/en/landlocked/think-pieces/farm-forex-insights-trade-legacy-burundi">https://www.un.org/en/landlocked/think-pieces/farm-forex-insights-trade-legacy-burundi</a></p>
     </section>
 </div>
     </div>

@@ -15,6 +15,7 @@ class Team extends Model
         'current_post',
         'eamil_adress',
         'phone_number',
+        'description',
         'picture_path'
     ];
 }

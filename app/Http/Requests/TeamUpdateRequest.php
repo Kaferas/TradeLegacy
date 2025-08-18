@@ -23,9 +23,10 @@ class TeamUpdateRequest extends FormRequest
     {
         return [
             'name' => "required|string|max:20",
-            'prenom' => "required|string|max:20",
+            'prenom' => "required|string|max:80",
             'current_post' => "required|string|max:50",
             'eamil_adress' => "email",
+            'description' => "string|max:255",
             'phone_number' => 'required|numeric|digits:8',
             'picture_path' => 'file|mimes:jpg,png|max:800'
         ];

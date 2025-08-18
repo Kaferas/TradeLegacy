@@ -33,7 +33,7 @@ class ContactController extends Controller
             'customer_name' => 'required|string',
             'customer_mail' => 'required|email',
             'customer_service' => 'required|string',
-            'service_date' => 'required|string',
+            // 'service_date' => 'required|string',
             'customer_phone' => 'required|string',
             'message' => 'nullable|string',
         ]);

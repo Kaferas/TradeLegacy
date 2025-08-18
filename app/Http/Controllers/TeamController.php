@@ -61,6 +61,7 @@ class TeamController extends Controller
             $team->picture_path = time() . '_' . $request->file('picture_path')->getClientOriginalName();
             $team->name = $request->get('name');
             $team->prenom = $request->get('prenom');
+            $team->description = $request->get('description');
             $team->current_post = $request->get('current_post');
             $team->eamil_adress = $request->get('eamil_adress');
             $team->phone_number = $request->get('phone_number');
@@ -99,14 +100,14 @@ class TeamController extends Controller
                 }
                 $fileName = time() . '_' . $request->file('picture_path')->getClientOriginalName();
                 $request->file('picture_path')->storeAs('uploads', $fileName, 'public');
-                $team->update([
-                    'name' => request()->name,
-                    'prenom' => request()->prenom,
-                    'current_post' => request()->current_post,
-                    'eamil_adress' => request()->eamil_adress,
-                    'phone_number' => request()->phone_number,
-                    'picture_path' => $fileName,
-                ]);
+                $team->description = $request->description;
+                $team->name = $request->name;
+                $team->prenom = $request->prenom;
+                $team->current_post = $request->current_post;
+                $team->eamil_adress = $request->eamil_adress;
+                $team->phone_number = $request->phone_number;
+                $team->picture_path = $fileName;
+                $team->save();
             }
             return redirect("/teams")
                 ->with('success', 'Le Membre Modifie avec Success.');

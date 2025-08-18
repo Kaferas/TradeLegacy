@@ -1,6 +1,10 @@
 
 /*** Spinner Start ***/
 /*** Spinner ***/
+*{
+    margin: 0;
+    padding: 0;
+}
 #spinner {
     opacity: 0;
     visibility: hidden;
@@ -1089,12 +1093,12 @@
 
 .testimonial .testimonial-carousel .testimonial-item .testimonial-img {
     position: relative;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height:100px;
     top: 10px; left: 50%;
     transform: translate(-50%, -50%);
     background-size: cover;
-    border: 3px solid var(--bs-primary);
+    border: 2px solid var(--bs-primary);
     border-style: dotted;
     border-radius: 50%;
 }
